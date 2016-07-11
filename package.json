@@ -1,0 +1,37 @@
+{
+  "name": "larpi",
+  "version": "1.0.0",
+  "description": "Location based interaction server for augmented reality servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebelin/LARPI.git"
+  },
+  "keywords": [
+    "ingress",
+    "pokemon",
+    "go",
+    "augmented",
+    "reality",
+    "open",
+    "source"
+  ],
+  "author": "Belin Fieldson @thebelin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thebelin/LARPI/issues"
+  },
+  "homepage": "https://github.com/thebelin/LARPI#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "prerender": "^4.0.10",
+    "socket.io": "^1.4.8",
+    "socketio": "^1.0.0"
+  }
+}
