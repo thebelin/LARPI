@@ -11,7 +11,7 @@ var express = require('express'),
   io = require('socket.io')(server),
 
 // the body-parser for form processing
-  bodyParser = require('body-parser')
+  bodyParser = require('body-parser'),
 
 // Get the async module to do async response
   async = require('async'),
