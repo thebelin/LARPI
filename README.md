@@ -1,6 +1,6 @@
 ####Location Augmented Reality Program Interaction API (LARPI)####
 
-The design of LARPI project is to build a server which provides an Ingress-like (Pokemon Go) API for building Augmented Reality experiences, available to users from a hosted web page or an app. Developers should be able to build their own Augmented Reality interaction points and customize map appearance within the system. All the components are Javascript native. Map data will be provided from the (OpenStreetData)[http://wiki.openstreetmap.org/wiki/Main_Page] API.
+The design of LARPI project is to build a server which provides an Ingress-like (Pokemon Go) API for building Augmented Reality experiences, available to users from a hosted web page or an app. Developers should be able to build their own Augmented Reality interaction points and customize map appearance within the system. All the components are Javascript native. Map data will be provided from the [OpenStreetMap.org](http://wiki.openstreetmap.org/wiki/Main_Page) API.
 
 ##Component Definition##
 * Interactions: An interaction is a physically anchored location which provides users an opportunity to interact with the server or each other
