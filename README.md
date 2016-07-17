@@ -25,17 +25,17 @@ API Important Points
 
 
 ###Client Interface:###
-The Client Interface is built in HTML5+js, using three.js to access the webGL display systems on mobile and desktop clients. It should be buildable through a generic build system, in this case Cordova.
+The Client Interface is built in HTML5+js, using three.js to access the webGL display systems on mobile and desktop clients. It should be buildable through a generic build system, in this case Cordova. The custom map interface is provided through the [mapbox.com](http://www.mapbox.com "Maps for Mobile and Web") API
 
 A JSON based config file is used to initialize the WebGL rendered components. Page appearance is adjustable through the modification of a scss (SASS) file which globally adjusts the theme and appearance of the displayed pages, which should also be generated from the JSON appearance config.
 
 Client Interface Pages
-* World Map - An overview showing the player and the interactions which are in range, use mapbox.com map customization API to configure the interface.
+* World Map - An overview showing the player and the interactions which are in range, use [mapbox.com](http://www.mapbox.com "Maps for Mobile and Web") map customization API to configure the interface.
 * Player - Tabbed interface Shows Player stats, inventory, level management, history
 * Interaction - An interface showing the details of the current interaction. Trade, Fight, Charm, Steal are all interaction types which might be used. Developers build the interaction interfaces for each type.
 
 
-###API Endpoints###
+##API Endpoints##
 ####GET####
 * / Fetches web root view, includes user interface
 
@@ -44,7 +44,22 @@ Client Interface Pages
 * /[version]/login Logs in the user (oauth)
 * /[version]/[interaction][?users] Sends interaction activity
 
-#####Socket.io emit:#####
+####Socket.io emit:####
 * /[version]/me User current data (including user interaction data)
 * /[version]/[interaction] Interacts with interaction point, possibly with other users
 
+##Admin API Endpoints##
+####GET####
+* /admin/ Admin root view
+* /[version]/admin/interaction Gets interactions in paged format
+
+####POST####
+* /[version]/admin/login Logs in User by obtaining access token
+* /[version]/admin/interaction/ Creates new interaction
+* /[version]/admin/activity Send Body data with location to watch activity
+
+####PUT####
+* /[version]/admin/interaction/[interactionid] Updates the interaction
+
+####Socket.io emit:####
+/[version]/admin/activity
