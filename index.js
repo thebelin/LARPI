@@ -23,7 +23,7 @@ var express = require('express'),
   env = require(__dirname + "/env.json"),
 
 // The static web folder for holding content
-  staticFolder = __dirname + '/' + (env.DIST_FOLDER || 'dist'),
+  staticFolder = __dirname + '/' + (env.DIST_FOLDER || 'app'),
 
 // The security key to post to secure endpoints
   securityKey = env.SECURITYKEY || 'ChangeMe2SomethingNew',
