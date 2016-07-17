@@ -1,6 +1,6 @@
 ####Location Augmented Reality Program Interaction API (LARPI)####
 
-The design of LARPI project is to build a server which provides an Ingress-like (Pokemon Go) API for building Augmented Reality experiences, available to users from a hosted web page or an app. Developers should be able to build their own Augmented Reality interaction points and customize map appearance within the system. All the components are Javascript native.
+The design of LARPI project is to build a server which provides an Ingress-like (Pokemon Go) API for building Augmented Reality experiences, available to users from a hosted web page or an app. Developers should be able to build their own Augmented Reality interaction points and customize map appearance within the system. All the components are Javascript native. Map data will be provided from the (OpenStreetData)[http://wiki.openstreetmap.org/wiki/Main_Page] API.
 
 ##Component Definition##
 * Interactions: An interaction is a physically anchored location which provides users an opportunity to interact with the server or each other
@@ -22,17 +22,19 @@ API Important Points
 * Many users might be participating in a single interaction.
 * Some interactions have user limits
 * Client and Server modules for interactions need to be created for each type of interaction being portrayed
+
 ____
 
 ###Client Interface:###
-The Client Interface is built in HTML5+js, using three.js to access the webGL display systems on mobile and desktop clients. It should be buildable through a generic build system, in this case Cordova. The custom map interface is provided through the Google javascript API
+The Client Interface is built in HTML5+js, using three.js to access the webGL display systems on mobile and desktop clients. It should be buildable through a generic build system, in this case Cordova. The custom map interface is provided through the Open Street Maps javascript API
 
 A JSON based config file is used to initialize the WebGL rendered components. Page appearance is adjustable through the modification of a scss (SASS) file which globally adjusts the theme and appearance of the displayed pages, which should also be generated from the JSON appearance config.
 
 Client Interface Pages
-* World Map - An overview showing the player and the interactions which are in range, use Google's javascript map customization API to configure the interface.
+* World Map - An overview showing the player and the interactions which are in range, use Open Street Map's javascript map customization API to configure the interface.
 * Player - Tabbed interface Shows Player stats, inventory, level management, history
 * Interaction - An interface showing the details of the current interaction. Trade, Fight, Charm, Steal are all interaction types which might be used. Developers build the interaction interfaces for each type.
+
 ____
 
 ##API Endpoints##
