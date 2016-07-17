@@ -30,21 +30,21 @@ The Client Interface is built in HTML5+js, using three.js to access the webGL di
 A JSON based config file is used to initialize the WebGL rendered components. Page appearance is adjustable through the modification of a scss (SASS) file which globally adjusts the theme and appearance of the displayed pages, which should also be generated from the JSON appearance config.
 
 Client Interface Pages
-* World Map - An overview showing the player and the interactions which are in range
-* Player - Tabbed interface Shows Player stats, inventory
+* World Map - An overview showing the player and the interactions which are in range, use mapbox.com map customization API to configure the interface.
+* Player - Tabbed interface Shows Player stats, inventory, level management, history
 * Interaction - An interface showing the details of the current interaction. Trade, Fight, Charm, Steal are all interaction types which might be used. Developers build the interaction interfaces for each type.
 
 
 ###API Endpoints###
-GET
-/ Fetches web root view, includes user interface
+####GET####
+* / Fetches web root view, includes user interface
 
-POST
-/[version]/location sends current location data
-/[version]/login Logs in the user (oauth)
-/[version]/[interaction][?users] Sends interaction activity
+####POST####
+* /[version]/location sends current location data
+* /[version]/login Logs in the user (oauth)
+* /[version]/[interaction][?users] Sends interaction activity
 
-Socket.io emit:
-/[version]/me User current data (including user interaction data)
-/[version]/[interaction] Interacts with interaction point, possibly with other users
+#####Socket.io emit:#####
+* /[version]/me User current data (including user interaction data)
+* /[version]/[interaction] Interacts with interaction point, possibly with other users
 
