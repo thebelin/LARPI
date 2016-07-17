@@ -11,7 +11,7 @@ var express = require('express'),
   io = require('socket.io')(server),
 
 // the body-parser for form processing
-  bodyParser = require('body-parser')
+  bodyParser = require('body-parser'),
 
 // Get the async module to do async response
   async = require('async'),
@@ -23,7 +23,7 @@ var express = require('express'),
   env = require(__dirname + "/env.json"),
 
 // The static web folder for holding content
-  staticFolder = __dirname + '/' + (env.DIST_FOLDER || 'dist'),
+  staticFolder = __dirname + '/' + (env.DIST_FOLDER || 'app'),
 
 // The security key to post to secure endpoints
   securityKey = env.SECURITYKEY || 'ChangeMe2SomethingNew',
