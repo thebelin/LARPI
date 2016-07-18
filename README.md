@@ -2,9 +2,9 @@
 The design of LARPI project is to build a server which provides an Ingress-like (Pokemon Go) API for building Augmented Reality experiences, available to users from a hosted web page or an app. Developers should be able to build their own Augmented Reality interaction points and customize map appearance within the system. All the components are Javascript native. Map data will be provided from the [OpenStreetMap.org](http://wiki.openstreetmap.org/wiki/Main_Page) API.
 
 ##Component Definition##
-* Interactions: An interaction is a physically anchored location which provides users an opportunity to interact with the server or each other
+* Interactions: An interaction is a physically anchored location which provides users an opportunity to interact with the server or each other in a pre-configured context
 * Inventory: A list of virtual assets
-* Server API: REST Server running on node.js+express which holds the data via MongoDB and answers calls on asynchronous endpoints, all data should be compressed, multiple instance capable for load balanced distribution, secured via token authentication created via Passportjs
+* Server API: REST Server running on node.js+express which holds the data via MongoDB with Mongoose data modeling and answers calls on asynchronous endpoints, all data should be compressed, multiple instance capable for load balanced distribution, secured via token authentication created via Passportjs
 * Client Interface: An HTML5 + js web service which shows the user game interface
 
 The Augmented Reality API should track:
@@ -40,18 +40,17 @@ A JSON based config file is used to initialize the WebGL rendered components. Pa
 
 ____
 
-##API Endpoints##
+## API Endpoints ##
 ####GET####
 * / Fetches web root view, includes user interface
 
 ####POST####
-* /[version]/location sends current location data
-* /[version]/login Logs in the user (oauth)
-* /[version]/[interaction][?users] Sends interaction activity about interaction point and the user ids which were part of it
+* /[version]/login Logs in the user (oauth), retrieves token
+* /[version]/[token]/location sends current location data
+* /[version]/[token]/[interaction][?users] Sends interaction activity about interaction point and the user ids which were part of it
 
 ####Socket.io emit:####
 * /[version]/me User current data (including user interaction data and history)
-* /[version]/[interaction] Interacts with interaction point, possibly with other users
 
 ##Admin API Endpoints##
 ####GET####
@@ -68,3 +67,17 @@ ____
 
 ####Socket.io emit:####
 * /[version]/admin/activity Update activity according to current profile
+
+____
+
+## Mongoose Data Models ##
+#### User ####
+#### Token ####
+#### Inventory ####
+#### Interaction ####
+
+### Secondary Data Models ###
+#### userType ####
+
+
+
