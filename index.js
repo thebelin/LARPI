@@ -19,43 +19,30 @@ var express = require('express'),
 // Let's compress our http output
   compression = require('compression'),
 
+// Authentication Middleware
+  passport = require('passport'),
+
+// Authentication middleware strategies for passport
+  strategies = {
+    local: require('passport-local').Strategy,
+    facebook: require('passport-facebook').Strategy,
+    google: require('passport-google').Strategy,
+    twitter: require('passport-twitter').Strategy
+  },
+
 // Get all the environment vars from the env.json library
-  env = require(__dirname + "/env.json"),
+  env = require(__dirname + '/env.json'),
 
 // The static web folder for holding content
   staticFolder = __dirname + '/' + (env.DIST_FOLDER || 'app'),
 
-// The security key to post to secure endpoints
-  securityKey = env.SECURITYKEY || 'ChangeMe2SomethingNew',
-
-// A basic security model
-  basic_auth = function (req, res, next) {
-    if (req.headers.authorization && req.headers.authorization.search('Basic ') === 0) {
-      // fetch login and password
-      if (new Buffer(req.headers.authorization.split(' ')[1], 'base64').toString() == 'admin:' + securityKey) {
-        next();
-        return;
-      }
-    }
-    console.log('Unable to authenticate user', req.headers.authorization);
-    res.header('WWW-Authenticate', 'Basic realm="Admin Area"');
-    if (req.headers.authorization) {
-      setTimeout(function () {
-        res.send('Authentication required', 401);
-      }, 5000);
-    } else {
-      res.send('Authentication required', 401);
-    }
-  },
-
-  // A collection of async routes to run on the server
+// A collection of async routes to run on the server
   appAsyncItems = [
-
     // Root path for serving support files from site
     express.static(staticFolder + '/html')
   ],
 
-  // This organizes the items which are incoming for async load
+// This organizes the items which are incoming for async load
   parallel = function (middlewares) {
     return function (req, res, next) {
       async.each(middlewares, function (mw, cb) {
@@ -64,7 +51,7 @@ var express = require('express'),
     };
   },
 
-  // A compression helper
+// A compression helper
   shouldCompress = function (req, res) {
     if (req.headers['x-no-compression']) {
       // don't compress responses with this request header
@@ -74,7 +61,6 @@ var express = require('express'),
     // fallback to standard filter function
     return compression.filter(req, res)
   };
-
 
 // Make the POST and PUT data available
 app.use(bodyParser.json());
@@ -94,20 +80,30 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Make the POST and PUT data available
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
 // Start up compression on everything
 app.use(compression({filter: shouldCompress}));
 
 // Start up the async server item collection
 app.use(parallel(appAsyncItems));
 
+// Authentication middleware for user token creation
+passport.use(new strategies.local(
+  function(email, password, done) {
+    var User = require('mongoose').model('User', require(__dirname + '/models/user.js'))
+    User.findOne({ email: email }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      // Password will be encoded
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
-// @TODO Add Authentication middleware for user token creation
 // @TODO Start Socket.io based middleware for interactions
 // @TODO Look for interaction modules and expose them
 

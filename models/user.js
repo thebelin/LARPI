@@ -1,41 +1,42 @@
 // A mongoose Data model for User data
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
 // Define the Schema
-var userSchema = new Schema({
+var userSchema = new require('mongoose').Schema({
   status: String,
-  level: Number,
-  experience: Number,
+  level: {type: Number, required: true, default: 0},
+  experience: {type: Number, required: true, default: 0},
   firstName:  String,
   lastName: String,
-  email: String,
-  password: String,
+  nickName: {type: String, required: true},
+  email: {type: String, required: true, lowercase: true, trim: true, index: {unique: true }},
+  password: {type: String, required: true},
   google: String,
   facebook: String,
   twitter: String,
   location: {lat: Number, lng: Number},
-  created: {type: Date, default: Date.now},
-  updated: {type: Date, default: Date.now},
   history: [{activity: String, date: Date}]
-});
-
-// Note: indexes are disabled so they don't auto-run on start
-userSchema.set('autoIndex', false);
+}, {timestamps: 1});
 
 // Create Indexes on queried and order fields
 userSchema.index({
   firstName: 1,
   lastName: 1,
+  nickName: 1,
   email: 1,
   password: 1,
-  location: 1,
   status: 1,
-  level: 1
+  level: 1,
+  location.lat: 1,
+  location.lng: 1
+});
+
+// A virtual for the full name data
+userSchema.virtual('fullName').get(function () {
+  return this.firstName + ' ' + this.lastName;
 });
 
 /**
  * Finds users who are within the specified distance of this user
+ * 
  * Note that this measurement is currently in degrees of lat/lng
  * 
  * @param Number   distance The maximum distance to look for other users

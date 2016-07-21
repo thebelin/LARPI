@@ -31,6 +31,11 @@
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "mongoose": "^4.5.5",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "prerender": "^4.0.10",
     "socket.io": "^1.4.8",
     "socketio": "^1.0.0"
